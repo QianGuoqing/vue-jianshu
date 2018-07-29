@@ -7,7 +7,7 @@
       <div class="index-download-search">
         <div class="index-page">首页</div>
         <div class="download">下载App</div>
-        <input type="text" class="search-input" placeholder="搜索">
+        <input type="text" class="search-input" :class="[animationClass]" placeholder="搜索" @focus="onInputFocus" @blur="onInputBlur">
       </div>
       <div class="mode-login-buttons">
         <div class="mode-login">
@@ -25,12 +25,46 @@
 
 <script>
   export default {
-    name: 'MainHeader'
+    name: 'MainHeader',
+    data() {
+      return {
+        inputWidth: '150px',
+        animationClass: ''
+      }
+    },
+    methods: {
+      onInputFocus() {
+        this.animationClass = 'input-wider'
+      },
+      onInputBlur() {
+        this.animationClass = 'input-shorter'
+      }
+    },
   }
 </script>
 
 <style lang="stylus" scoped>
   @import '../../common/stylus/colors.styl';
+  @keyframes wider {
+    0% {
+      width 150px
+    }
+    100% {
+      width 250px
+    }
+  }
+  @keyframes shorter {
+    0% {
+      width 250px
+    }
+    100% {
+      width 150px
+    }
+  }
+  .input-wider
+    animation wider .5s 1 forwards ease-in
+  .input-shorter 
+    animation shorter .5s 1 forwards ease-out
   .header
     width 100%
     height 56px
@@ -60,7 +94,6 @@
           font-size 17px
           color $font-color
         .search-input
-          width 150px
           height 35px
           margin 0 15px
           border-radius 10px
