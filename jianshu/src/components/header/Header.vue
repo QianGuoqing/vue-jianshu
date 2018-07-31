@@ -24,20 +24,25 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'MainHeader',
     data() {
       return {
-        inputWidth: '150px',
-        animationClass: ''
+        inputWidth: '150px'
       }
+    },
+    computed: {
+      ...mapState([
+        'animationClass'
+      ])
     },
     methods: {
       onInputFocus() {
-        this.animationClass = 'input-wider'
+        this.$store.commit('setSearchAnimation', { classname: 'input-wider' })
       },
       onInputBlur() {
-        this.animationClass = 'input-shorter'
+        this.$store.commit('setSearchAnimation', { classname: 'input-shorter' })
       }
     },
   }
